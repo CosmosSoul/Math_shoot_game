@@ -26,6 +26,8 @@ public class playerController : MonoBehaviour
     {
         movePlayer();
         constrainZ();       
+
+       
     }
 
     void movePlayer()
@@ -58,10 +60,28 @@ public class playerController : MonoBehaviour
             playerRb.velocity = new Vector3(0, 0, 0);
         }
 
+
+
         //Good for 2D movement? but if colliding with object, center of gravity(?) changes and then directions get mixed up
         //transform.Translate(Vector3.left * horizontalInput * Time.deltaTime * moveSpeed);
         //verticalInput = Input.GetAxis("Vertical");
         //transform.Translate(Vector3.back * verticalInput * Time.deltaTime * moveSpeed);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if ((collision.gameObject.CompareTag("enemy")) || (collision.gameObject.CompareTag("obstacle")))
+        {
+            Debug.Log("One " + collision.gameObject.tag + " has hit you, captain!");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("powerUp"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }
 
