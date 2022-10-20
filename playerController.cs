@@ -12,7 +12,14 @@ public class playerController : MonoBehaviour
     public float zBound = 12; 
 
     private Rigidbody playerRb;
+    [SerializeField]
     public Quaternion startRotation;
+    public GameObject laserShotAdd;
+    public GameObject laserShotSub;
+    
+
+    public bool addShotActive;
+    public bool subShotActive;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +32,20 @@ public class playerController : MonoBehaviour
     void Update()
     {
         movePlayer();
-        constrainZ();       
+        constrainZ();
+        shotsFired();
 
-       
+    }
+
+    void shotsFired()
+    {
+        Vector3 shotPosition = new Vector3(playerRb.transform.position.x, playerRb.transform.position.y, playerRb.transform.position.z - 1);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(laserShotSub, shotPosition, startRotation);
+        }
+        
     }
 
     void movePlayer()
