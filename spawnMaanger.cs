@@ -18,6 +18,7 @@ public class spawnMaanger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Enemy spawn and powerup spawn start and repeat at set interval
         InvokeRepeating("SpawnRandomEnemy", spawnStartDelay, spawnRespawnDelay);
         InvokeRepeating("SpawnPowerUp", spawnStartDelay, spawnRespawnDelay+10);
     }

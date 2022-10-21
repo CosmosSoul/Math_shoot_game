@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class playerController : MonoBehaviour
     public GameObject laserShotAdd;
     public GameObject laserShotSub;
     
+   
 
     public bool addShotActive;
     public bool subShotActive;
@@ -26,6 +28,7 @@ public class playerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         startRotation = transform.rotation;
+        
     }
 
     // Update is called once per frame
@@ -91,6 +94,8 @@ public class playerController : MonoBehaviour
         if ((collision.gameObject.CompareTag("enemy")) || (collision.gameObject.CompareTag("obstacle")))
         {
             Debug.Log("One " + collision.gameObject.tag + " has hit you, captain!");
+            scoreScript.scoreValue += 10;
+            Debug.Log(scoreScript.scoreValue);
         }
     }
 
