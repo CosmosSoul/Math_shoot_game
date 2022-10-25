@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+//using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +28,7 @@ public class playerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         startRotation = transform.rotation;
+        scoreScript.instance.AddPoint();
         
     }
 
@@ -37,6 +38,7 @@ public class playerController : MonoBehaviour
         movePlayer();
         constrainZ();
         shotsFired();
+        
 
     }
 
@@ -94,8 +96,11 @@ public class playerController : MonoBehaviour
         if ((collision.gameObject.CompareTag("enemy")) || (collision.gameObject.CompareTag("obstacle")))
         {
             Debug.Log("One " + collision.gameObject.tag + " has hit you, captain!");
-            scoreScript.scoreValue += 10;
-            Debug.Log(scoreScript.scoreValue);
+            //scoreScript.scoreValue += 10;
+            // scoreScript.scoreText = scoreScript.scoreValue.ToString();
+            scoreScript.instance.AddPoint();
+           // scoreScript.instance.scoreText = "Score: " + scoreScript.instance.scoreValue;
+            Debug.Log(scoreScript.instance.scoreValue);
         }
     }
 
@@ -104,6 +109,8 @@ public class playerController : MonoBehaviour
         if (other.gameObject.CompareTag("powerUp"))
         {
             Destroy(other.gameObject);
+
+           
         }
     }
 }
