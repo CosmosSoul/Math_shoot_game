@@ -17,8 +17,12 @@ public class playerController : MonoBehaviour
     public Quaternion startRotation;
     public GameObject laserShotAdd;
     public GameObject laserShotSub;
-    
-   
+
+    public Text scoreText;
+    private int currentScore = 0;
+    public Text hiScoreText;
+    public int hiScore = 0;
+
 
     public bool addShotActive;
     public bool subShotActive;
@@ -28,7 +32,10 @@ public class playerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         startRotation = transform.rotation;
-        scoreScript.instance.AddPoint();
+       // scoreScript.instance.AddPoint();
+     //   scoreText = GetComponent<Text>();
+
+        scoreText.text = "Score: ";
         
     }
 
@@ -38,8 +45,6 @@ public class playerController : MonoBehaviour
         movePlayer();
         constrainZ();
         shotsFired();
-        
-
     }
 
     void shotsFired()
@@ -96,11 +101,17 @@ public class playerController : MonoBehaviour
         if ((collision.gameObject.CompareTag("enemy")) || (collision.gameObject.CompareTag("obstacle")))
         {
             Debug.Log("One " + collision.gameObject.tag + " has hit you, captain!");
-            //scoreScript.scoreValue += 10;
+            currentScore += 10;
+            Debug.Log(currentScore);
+            scoreText.text = "Score: " + currentScore;
+
+
+            // Attempting to use script communication with "scoreScript" to update score.
+
             // scoreScript.scoreText = scoreScript.scoreValue.ToString();
-            scoreScript.instance.AddPoint();
-           // scoreScript.instance.scoreText = "Score: " + scoreScript.instance.scoreValue;
-            Debug.Log(scoreScript.instance.scoreValue);
+            //scoreScript.instance.AddPoint();
+            // scoreScript.instance.scoreText = "Score: " + scoreScript.instance.scoreValue;
+            // Debug.Log(scoreScript.instance.scoreValue);
         }
     }
 
