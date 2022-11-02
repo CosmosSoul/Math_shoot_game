@@ -107,8 +107,8 @@ public class playerController : MonoBehaviour
         {
             Debug.Log("One " + collision.gameObject.tag + " has hit you, captain!");
             // scoreScript.scoreValue += 10;
-            scoreScript.Test();
-            scoreScript.AddPoint();
+           // scoreScript.Test();
+            //scoreScript.AddPoint();
             Debug.Log(scoreScript.scoreValue);
             //scoreScript.scoreText.text = "Score(pc): " + scoreScript.scoreValue;
             
