@@ -17,26 +17,32 @@ public class playerController : MonoBehaviour
     public Quaternion startRotation;
     public GameObject laserShotAdd;
     public GameObject laserShotSub;
-
+     /*
     public Text scoreText;
     private int currentScore = 0;
     public Text hiScoreText;
     public int hiScore = 0;
+     */
 
+
+    public scoreScript scoreScript;
 
     public bool addShotActive;
     public bool subShotActive;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         startRotation = transform.rotation;
-       // scoreScript.instance.AddPoint();
-     //   scoreText = GetComponent<Text>();
-
-        scoreText.text = "Score: ";
+        // scoreScript.instance.AddPoint();
+        scoreScript = GameObject.Find("Game Manager").GetComponent<scoreScript>();
         
+
+        // scoreText.text = "Score Hs: ";
+
     }
 
     // Update is called once per frame
@@ -45,6 +51,7 @@ public class playerController : MonoBehaviour
         movePlayer();
         constrainZ();
         shotsFired();
+
     }
 
     void shotsFired()
@@ -88,8 +95,6 @@ public class playerController : MonoBehaviour
             playerRb.velocity = new Vector3(0, 0, 0);
         }
 
-
-
         //Good for 2D movement? but if colliding with object, center of gravity(?) changes and then directions get mixed up
         //transform.Translate(Vector3.left * horizontalInput * Time.deltaTime * moveSpeed);
         //verticalInput = Input.GetAxis("Vertical");
@@ -101,9 +106,12 @@ public class playerController : MonoBehaviour
         if ((collision.gameObject.CompareTag("enemy")) || (collision.gameObject.CompareTag("obstacle")))
         {
             Debug.Log("One " + collision.gameObject.tag + " has hit you, captain!");
-            currentScore += 10;
-            Debug.Log(currentScore);
-            scoreText.text = "Score: " + currentScore;
+            // scoreScript.scoreValue += 10;
+            scoreScript.Test();
+            scoreScript.AddPoint();
+            Debug.Log(scoreScript.scoreValue);
+            //scoreScript.scoreText.text = "Score(pc): " + scoreScript.scoreValue;
+            
 
 
             // Attempting to use script communication with "scoreScript" to update score.

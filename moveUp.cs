@@ -6,7 +6,7 @@ public class moveUp : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody objectRb;
-    public float speed = 5.0f;
+    public float speed = 10.0f;
     public float zBound = -15f;
     // Start is called before the first frame update
     void Start()

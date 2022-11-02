@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class spawnMaanger : MonoBehaviour
@@ -7,6 +8,8 @@ public class spawnMaanger : MonoBehaviour
 
     public GameObject[] enemyArray;
     public GameObject powerUp;
+    public GameObject scoreScript;
+    //public TextMeshProUGUI scoreText;
 
     public float zRange = 15f;
     public float xSpawn = 11f;
@@ -21,6 +24,9 @@ public class spawnMaanger : MonoBehaviour
         //Enemy spawn and powerup spawn start and repeat at set interval
         InvokeRepeating("SpawnRandomEnemy", spawnStartDelay, spawnRespawnDelay);
         InvokeRepeating("SpawnPowerUp", spawnStartDelay, spawnRespawnDelay+10);
+
+       //scoreScript = GameObject.Find("scoreScript");
+           // gameManager = GameObject.Find("Game Manager").GetComponent<gameManager>();
     }
 
     // Update is called once per frame

@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class scoreScript : MonoBehaviour
 {
-    public static scoreScript instance;
-
+    //public static scoreScript instance;
+    public TextMeshProUGUI scoreText;
     public int scoreValue = 0;
     //public int hiScoreValue = 0;
-    public Text scoreText;
+    //public Text scoreText;
     //public Text hiScoreText;
 
     private void Awake()
@@ -35,6 +36,11 @@ public class scoreScript : MonoBehaviour
     public void AddPoint()
     {
         scoreValue += 10;
-        scoreText.text = "Score: " + scoreValue.ToString();
+        scoreText.text = "Score(ss): " + scoreValue;
+    }
+
+    public void Test()
+    {
+        Debug.Log("Test");
     }
 }
