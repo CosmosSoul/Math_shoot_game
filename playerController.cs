@@ -108,7 +108,10 @@ public class playerController : MonoBehaviour
             Debug.Log("One " + collision.gameObject.tag + " has hit you, captain!");
             // scoreScript.scoreValue += 10;
            // scoreScript.Test();
-            //scoreScript.AddPoint();
+            //
+            //
+            //
+            //   scoreScript.AddPoint();
             Debug.Log(scoreScript.scoreValue);
             //scoreScript.scoreText.text = "Score(pc): " + scoreScript.scoreValue;
             
@@ -128,8 +131,6 @@ public class playerController : MonoBehaviour
         if (other.gameObject.CompareTag("powerUp"))
         {
             Destroy(other.gameObject);
-
-           
         }
     }
 }
