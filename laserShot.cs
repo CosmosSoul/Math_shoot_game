@@ -12,8 +12,6 @@ public class laserShot : MonoBehaviour
     public float deathDelay = 2f;
 
 
-
-
     // Start is called before the first frame update
     void Start()
     {
