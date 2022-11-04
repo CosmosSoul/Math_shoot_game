@@ -23,7 +23,6 @@ public class laserShot : MonoBehaviour
     {
         
     }
-
     private void OnCollisionEnter(Collision collision)
     {
         if ((collision.gameObject.CompareTag("enemy")) || (collision.gameObject.CompareTag("obstacle")))
