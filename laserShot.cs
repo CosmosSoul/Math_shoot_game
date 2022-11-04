@@ -35,7 +35,6 @@ public class laserShot : MonoBehaviour
             scoreScript.Test();
             scoreScript.AddPoint();
             Debug.Log(scoreScript.scoreValue);
-
         }
     } 
 }
