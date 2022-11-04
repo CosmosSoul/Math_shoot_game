@@ -5,7 +5,6 @@ using static UnityEngine.GraphicsBuffer;
 
 public class laserShot : MonoBehaviour
 {
-
     //public playerController playerController;
     //public gameManager gameManager;
     public scoreScript scoreScript;
