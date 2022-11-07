@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class playerController : MonoBehaviour
 {
@@ -17,12 +18,18 @@ public class playerController : MonoBehaviour
     public Quaternion startRotation;
     public GameObject laserShotAdd;
     public GameObject laserShotSub;
-     /*
-    public Text scoreText;
+   
+    public TextMeshProUGUI gameOverText;
+    
     private int currentScore = 0;
-    public Text hiScoreText;
-    public int hiScore = 0;
-     */
+
+    private gameManager gameManager;
+    private spawnManager spawnManager;
+
+    /*
+  public Text hiScoreText;
+  public int hiScore = 0;
+   */
 
 
     public scoreScript scoreScript;
@@ -40,7 +47,9 @@ public class playerController : MonoBehaviour
         startRotation = transform.rotation;
         // scoreScript.instance.AddPoint();
         scoreScript = GameObject.Find("Game Manager").GetComponent<scoreScript>();
-        
+        gameOverText.gameObject.SetActive(false);
+        gameManager = GameObject.Find("Game Manager").GetComponent<gameManager>();
+        spawnManager = GameObject.Find("Spawn Manager").GetComponent<spawnManager>();
 
         // scoreText.text = "Score Hs: ";
 
@@ -49,9 +58,14 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movePlayer();
         constrainZ();
-        shotsFired();
+
+        if (gameManager.gameActive)
+        {
+            movePlayer();
+            shotsFired();
+            
+        }
 
     }
 
@@ -114,9 +128,11 @@ public class playerController : MonoBehaviour
             //
             //   scoreScript.AddPoint();
             Debug.Log(scoreScript.scoreValue);
+            gameOverText.gameObject.SetActive(true);
+            gameManager.restartButton.SetActive(true);
+            gameManager.gameActive = false;
+            //spawnManager.CancelInvoke("SpawnRandomEnemy");
             //scoreScript.scoreText.text = "Score(pc): " + scoreScript.scoreValue;
-            
-
 
             // Attempting to use script communication with "scoreScript" to update score.
 
@@ -125,6 +141,7 @@ public class playerController : MonoBehaviour
             // scoreScript.instance.scoreText = "Score: " + scoreScript.instance.scoreValue;
             // Debug.Log(scoreScript.instance.scoreValue);
         }
+
     }
 
     private void OnTriggerEnter(Collider other)

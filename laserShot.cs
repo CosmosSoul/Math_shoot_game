@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+//using static UnityEngine.GraphicsBuffer;
 
 public class laserShot : MonoBehaviour
 {
@@ -34,6 +34,7 @@ public class laserShot : MonoBehaviour
             scoreScript.Test();
             scoreScript.AddPoint();
             Debug.Log(scoreScript.scoreValue);
+            
         }
     } 
 }

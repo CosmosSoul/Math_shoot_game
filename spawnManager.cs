@@ -17,17 +17,24 @@ public class spawnManager : MonoBehaviour
 
     public float spawnStartDelay = 2f;
     public float spawnRespawnDelay = 3f;
+    public gameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Enemy spawn and powerup spawn start and repeat at set interval
-        InvokeRepeating("SpawnRandomEnemy", spawnStartDelay, spawnRespawnDelay);
-        InvokeRepeating("SpawnPowerUp", spawnStartDelay, spawnRespawnDelay+10);
-
+        // ATTEMPTING TO STOP SPAWNING WHEN GAME IS OVER WITH gameActive bool
+        //gameManager = GameObject.Find("Game Manager").GetComponent<gameManager>();
+        //gameManager.gameActive = true;
+        //if (gameManager.gameActive)
+        //{
+            //Enemy spawn and powerup spawn start and repeat at set interval
+            InvokeRepeating("SpawnRandomEnemy", spawnStartDelay, spawnRespawnDelay);
+            InvokeRepeating("SpawnPowerUp", spawnStartDelay, spawnRespawnDelay + 10);
+       // }
        //scoreScript = GameObject.Find("scoreScript");
            // gameManager = GameObject.Find("Game Manager").GetComponent<gameManager>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -54,5 +61,11 @@ public class spawnManager : MonoBehaviour
         Vector3 randomPosition = new Vector3(randomX, ySpawn, randomZ);
         
         Instantiate(powerUp, randomPosition, powerUp.transform.rotation);
+    }
+
+    void SpawnTings()
+    {
+        SpawnPowerUp();
+        SpawnRandomEnemy();
     }
 }
