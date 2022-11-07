@@ -40,6 +40,7 @@ public class spawnManager : MonoBehaviour
     void Update()
     {
         
+
     }
 
     void SpawnRandomEnemy()
