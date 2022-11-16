@@ -8,7 +8,7 @@ public class moveUp : MonoBehaviour
     private Rigidbody objectRb;
     public float speed = 10.0f;
     public float zBound = -15f;
-    // Start is called before the first frame update
+    // Start is called before the first frame update. Ok then add there! Ok done!
     void Start()
     {
         objectRb = GetComponent<Rigidbody>();
