@@ -11,7 +11,8 @@ public class playerController : MonoBehaviour
     public float horizontalInput;
     public float verticalInput;
     public float moveSpeed = 15f;
-    public float zBound = 12; 
+    public float zBound = 12;
+    public int lives = 3;
 
     private Rigidbody playerRb;
     [SerializeField]
@@ -121,16 +122,22 @@ public class playerController : MonoBehaviour
         if ((collision.gameObject.CompareTag("enemy")) || (collision.gameObject.CompareTag("obstacle")))
         {
             Debug.Log("One " + collision.gameObject.tag + " has hit you, captain!");
-            // scoreScript.scoreValue += 10;
-           // scoreScript.Test();
-            //
-            //
-            //
-            //   scoreScript.AddPoint();
-            Debug.Log(scoreScript.scoreValue);
-            gameOverText.gameObject.SetActive(true);
-            gameManager.restartButton.SetActive(true);
-            gameManager.gameActive = false;
+            lives -= 1;
+            Debug.Log( lives + " Lives Remaining!");
+
+            if (lives <= 0)
+            {
+                // scoreScript.scoreValue += 10;
+                // scoreScript.Test();
+                //
+                //
+                //
+                //   scoreScript.AddPoint();
+                Debug.Log(scoreScript.scoreValue);
+                gameOverText.gameObject.SetActive(true);
+                gameManager.restartButton.SetActive(true);
+                gameManager.gameActive = false;
+            }
             //spawnManager.CancelInvoke("SpawnRandomEnemy");
             //scoreScript.scoreText.text = "Score(pc): " + scoreScript.scoreValue;
 
