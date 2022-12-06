@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 //using static UnityEngine.GraphicsBuffer;
 
 public class laserShot : MonoBehaviour
@@ -9,6 +10,7 @@ public class laserShot : MonoBehaviour
     //public gameManager gameManager;
     public scoreScript scoreScript;
     public float deathDelay = 2f;
+    public bool laserState;
 
     // Start is called before the first frame update
     void Start()
@@ -23,18 +25,28 @@ public class laserShot : MonoBehaviour
     {
         
     }
+
+
+
+
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("enemy")) || (collision.gameObject.CompareTag("obstacle")))
+        if ((laserState) && ((collision.gameObject.CompareTag("plusEnemy")) || (collision.gameObject.CompareTag("obstacle"))))
         {
             Debug.Log("One " + collision.gameObject.tag + " has hit you, captain!");
             // scoreScript.scoreValue += 10;
             Destroy(collision.gameObject, 1);
             Destroy(this.gameObject, 1);
-            scoreScript.Test();
+            //scoreScript.Test();
             scoreScript.AddPoint();
-            Debug.Log(scoreScript.scoreValue);
+            //Debug.Log(scoreScript.scoreValue);
             
+        }
+        else if ((!laserState) && ((collision.gameObject.CompareTag("minusEnemy")) || (collision.gameObject.CompareTag("obstacle"))))
+        {
+            Destroy(collision.gameObject, 1);
+            Destroy(this.gameObject, 1);
+            scoreScript.AddPoint();
         }
     } 
 }

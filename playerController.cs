@@ -17,16 +17,21 @@ public class playerController : MonoBehaviour
     private Rigidbody playerRb;
     [SerializeField]
     public Quaternion startRotation;
-    public GameObject laserShotAdd;
+    
     public GameObject laserShotSub;
+    public GameObject laserShotPlus;
+    public GameObject plusSymbol;
+    public GameObject minusSymbol;
    
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI shotStateText;
+    public TextMeshProUGUI livesText;
     
     private int currentScore = 0;
 
     private gameManager gameManager;
     private spawnManager spawnManager;
-
+    //private laserShot laserShot;
     /*
   public Text hiScoreText;
   public int hiScore = 0;
@@ -37,13 +42,18 @@ public class playerController : MonoBehaviour
 
     public bool addShotActive;
     public bool subShotActive;
+    public bool laserState;
 
 
 
-
+    private void Awake()
+    {
+        livesText.text = "Lives: " + lives;
+    }
     // Start is called before the first frame update
     void Start()
     {
+        
         playerRb = GetComponent<Rigidbody>();
         startRotation = transform.rotation;
         // scoreScript.instance.AddPoint();
@@ -51,6 +61,11 @@ public class playerController : MonoBehaviour
         gameOverText.gameObject.SetActive(false);
         gameManager = GameObject.Find("Game Manager").GetComponent<gameManager>();
         spawnManager = GameObject.Find("Spawn Manager").GetComponent<spawnManager>();
+        //laserShot = GameObject.Find("laserShot").GetComponent<laserShot>();
+        shotStateText.text = "Shot Type: + ";
+        minusSymbol.gameObject.SetActive(false);
+        plusSymbol.gameObject.SetActive(false);
+        
 
         // scoreText.text = "Score Hs: ";
 
@@ -59,24 +74,61 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        livesText.text = "Lives: " + lives;
         constrainZ();
 
         if (gameManager.gameActive)
         {
             movePlayer();
             shotsFired();
+            changeLaserState();
             
         }
 
     }
 
+    void changeLaserState()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            laserState = true;
+            shotStateText.text = "Shot Type: + ";
+            plusSymbol.gameObject.SetActive(true);
+            minusSymbol.gameObject.SetActive(false);
+            Debug.Log(laserState);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            laserState = false;
+            shotStateText.text = "Shot Type: - ";
+            Debug.Log(laserState);
+            plusSymbol.gameObject.SetActive(false);
+            minusSymbol.gameObject.SetActive(true);
+        }
+    }
+
+
     void shotsFired()
     {
-        Vector3 shotPosition = new Vector3(playerRb.transform.position.x, playerRb.transform.position.y, playerRb.transform.position.z - 1);
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (laserState)
         {
-            Instantiate(laserShotSub, shotPosition, startRotation);
+            Vector3 shotPosition = new Vector3(playerRb.transform.position.x, playerRb.transform.position.y, playerRb.transform.position.z - 1);
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Instantiate(laserShotPlus, shotPosition, startRotation);
+            }
+        }
+        else if (!laserState)
+        {
+            Vector3 shotPosition = new Vector3(playerRb.transform.position.x, playerRb.transform.position.y, playerRb.transform.position.z - 1);
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Instantiate(laserShotSub, shotPosition, startRotation);
+            }
         }
         
     }
@@ -119,10 +171,11 @@ public class playerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("enemy")) || (collision.gameObject.CompareTag("obstacle")))
+        if ((collision.gameObject.CompareTag("plusEnemy")) || (collision.gameObject.CompareTag("minusEnemy")))
         {
             Debug.Log("One " + collision.gameObject.tag + " has hit you, captain!");
             lives -= 1;
+            livesText.text = "lives: " + lives;
             Debug.Log( lives + " Lives Remaining!");
 
             if (lives <= 0)
@@ -150,6 +203,8 @@ public class playerController : MonoBehaviour
         }
 
     }
+
+    
 
     private void OnTriggerEnter(Collider other)
     {
