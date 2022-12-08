@@ -8,12 +8,15 @@ public class gameManager : MonoBehaviour
 {
 
     public GameObject restartButton;
+    public GameObject titleScreen;
     public bool gameActive = true;
     // Start is called before the first frame update
     void Start()
     {
-        gameActive = true;
+       // titleScreen = GameObject.Find("Title Screen");
+        gameActive = false;
         restartButton.SetActive(false);
+        titleScreen.SetActive(true);
     }
 
     // Update is called once per frame
@@ -30,5 +33,10 @@ public class gameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("My Game_v0.1");
     }
 }

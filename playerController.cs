@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour
     public GameObject laserShotPlus;
     public GameObject plusSymbol;
     public GameObject minusSymbol;
+    public ParticleSystem thrusterParticles;
    
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI shotStateText;
@@ -54,6 +55,8 @@ public class playerController : MonoBehaviour
     void Start()
     {
         
+        thrusterParticles.Stop();
+
         playerRb = GetComponent<Rigidbody>();
         startRotation = transform.rotation;
         // scoreScript.instance.AddPoint();
@@ -155,7 +158,7 @@ public class playerController : MonoBehaviour
             playerRb.velocity = new Vector3(0, 0, 0);
         }
 
-        if (transform.position.z < -zBound)
+        if (transform.position.z < -zBound - 15)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, -zBound);
 
@@ -202,6 +205,17 @@ public class playerController : MonoBehaviour
             // Debug.Log(scoreScript.instance.scoreValue);
         }
 
+        
+
+    }
+
+    IEnumerator ThrusterActivate()
+    {
+        thrusterParticles.Play();
+        moveSpeed *= 4;
+        yield return new WaitForSeconds(5.0f);
+        moveSpeed /= 4;
+        thrusterParticles.Stop();
     }
 
     
@@ -211,6 +225,9 @@ public class playerController : MonoBehaviour
         if (other.gameObject.CompareTag("powerUp"))
         {
             Destroy(other.gameObject);
+            StartCoroutine(ThrusterActivate());
+            //Add speed increase
+            
         }
     }
 }
