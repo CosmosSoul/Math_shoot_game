@@ -9,7 +9,7 @@ public class gameManager : MonoBehaviour
 
     public GameObject restartButton;
     public GameObject titleScreen;
-    public bool gameActive = true;
+    public bool gameActive = false;
     // Start is called before the first frame update
     void Start()
     {
