@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class spawnManager : MonoBehaviour
 {
@@ -16,13 +17,16 @@ public class spawnManager : MonoBehaviour
     public float ySpawn = 1f;
 
     public float spawnStartDelay = 2f;
-    public float spawnRespawnDelay = 3f;
+    public float spawnRate = 1;
     public gameManager gameManager;
     public bool gameActive;
+    public int difficulty;
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        gameManager = GameObject.Find("Game Manager").GetComponent<gameManager>();
         // ATTEMPTING TO STOP SPAWNING WHEN GAME IS OVER WITH gameActive bool
         //gameManager = GameObject.Find("Game Manager").GetComponent<gameManager>();
         //gameManager.gameActive = true;
@@ -31,8 +35,8 @@ public class spawnManager : MonoBehaviour
         //Enemy spawn and powerup spawn start and repeat at set interval
         if (gameActive)
         {
-            InvokeRepeating("SpawnRandomEnemy", spawnStartDelay, spawnRespawnDelay);
-            InvokeRepeating("SpawnPowerUp", spawnStartDelay, spawnRespawnDelay + 10);
+            InvokeRepeating("SpawnRandomEnemy", spawnStartDelay, (spawnRate));
+            InvokeRepeating("SpawnPowerUp", spawnStartDelay, spawnRate + 10);
         }
        // }
        //scoreScript = GameObject.Find("scoreScript");
@@ -47,18 +51,41 @@ public class spawnManager : MonoBehaviour
 
     }
 
-    void SpawnRandomEnemy()
+    public void StartGame(float difficulty)
     {
-        float randomX = Random.Range(xSpawn, -xSpawn);
-        float randomZ = Random.Range(zRange, -zRange);
+        gameActive = true;
+        spawnRate /= difficulty;
+        
+        //SceneManager.LoadScene("My Game_v0.1");
+        gameManager.titleScreen.SetActive(false);
+        
+        StartCoroutine(SpawnRandomEnemy());
+        
 
-        Vector3 randomPosition = new Vector3(randomX, ySpawn, randomZ);
-        int randomIndex = Random.Range(0, enemyArray.Length);
-
-        Instantiate(enemyArray[randomIndex], randomPosition, enemyArray[randomIndex].transform.rotation);
     }
+    private void SetDifficulty()
+    {
+        StartGame(difficulty);
+    }
+    IEnumerator SpawnRandomEnemy()
+    {
+        while (gameActive)
+        {
+            yield return new WaitForSeconds(spawnRate);
 
-    void SpawnPowerUp()
+            float randomX = Random.Range(xSpawn, -xSpawn);
+            float randomZ = Random.Range(zRange, -zRange);
+
+            Vector3 randomPosition = new Vector3(randomX, ySpawn, randomZ);
+            int randomIndex = Random.Range(0, enemyArray.Length);
+
+            Instantiate(enemyArray[randomIndex], randomPosition, enemyArray[randomIndex].transform.rotation);
+        }    
+        
+       }
+
+
+    public void SpawnPowerUp()
     {
         float randomX = Random.Range(xSpawn, -xSpawn);
         float randomZ = Random.Range(zRange, -zRange);

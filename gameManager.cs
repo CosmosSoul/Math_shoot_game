@@ -10,10 +10,12 @@ public class gameManager : MonoBehaviour
     public GameObject restartButton;
     public GameObject titleScreen;
     public bool gameActive = false;
+    public spawnManager spawnManager;
     // Start is called before the first frame update
     void Start()
     {
-       // titleScreen = GameObject.Find("Title Screen");
+        // titleScreen = GameObject.Find("Title Screen");
+        //spawnManager = GameObject.Find("spawnManager").GetComponent<spawnManager>();
         gameActive = false;
         restartButton.SetActive(false);
         titleScreen.SetActive(true);
@@ -24,7 +26,12 @@ public class gameManager : MonoBehaviour
     {
         
     }
-
+    /*public void StartGame(float difficulty)
+    {
+        gameActive = true;
+        
+    }
+    */
     public void GameOver()
     {
 
@@ -35,8 +42,13 @@ public class gameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void StartGame()
+   /* public void StartGame(float difficulty)
     {
+        spawnManager.spawnRespawnDelay /= spawnManager.difficulty;
         SceneManager.LoadScene("My Game_v0.1");
+        gameActive = true;
+        StartCoroutine(spawnManager.SpawnRandomEnemy());
+        
     }
+   */
 }

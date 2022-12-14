@@ -63,7 +63,7 @@ public class playerController : MonoBehaviour
         scoreScript = GameObject.Find("Game Manager").GetComponent<scoreScript>();
         gameOverText.gameObject.SetActive(false);
         gameManager = GameObject.Find("Game Manager").GetComponent<gameManager>();
-        spawnManager = GameObject.Find("Spawn Manager").GetComponent<spawnManager>();
+       // spawnManager = GameObject.Find("spawnManager").GetComponent<spawnManager>();
         //laserShot = GameObject.Find("laserShot").GetComponent<laserShot>();
         shotStateText.text = "Shot Type: + ";
         minusSymbol.gameObject.SetActive(false);
