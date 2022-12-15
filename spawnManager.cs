@@ -19,7 +19,7 @@ public class spawnManager : MonoBehaviour
     public float spawnStartDelay = 2f;
     public float spawnRate = 1;
     public gameManager gameManager;
-    public bool gameActive;
+    public bool gameActive = false;
     public int difficulty;
 
     // Start is called before the first frame update

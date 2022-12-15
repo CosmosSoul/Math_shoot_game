@@ -28,5 +28,6 @@ public class difficultyButton : MonoBehaviour
     private void SetDifficulty()
     {
         spawnManager.StartGame(difficulty);
+        gameManager.gameActive = true;
     }
 }

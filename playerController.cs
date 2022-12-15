@@ -69,6 +69,7 @@ public class playerController : MonoBehaviour
         minusSymbol.gameObject.SetActive(false);
         plusSymbol.gameObject.SetActive(false);
         
+        
 
         // scoreText.text = "Score Hs: ";
 
@@ -85,7 +86,9 @@ public class playerController : MonoBehaviour
             movePlayer();
             shotsFired();
             changeLaserState();
-            
+
+            gameManager.titleScreen.SetActive(false);
+
         }
 
     }
